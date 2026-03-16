@@ -1,71 +1,42 @@
-# React + TypeScript + Vite
+# SoftSync — Animated Product Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A standalone, animated product demo section for the [SoftSync](https://softsync.ai) website. It showcases the platform (sidebar, AI chat, pipeline, and email) in an engaging, B2B-appropriate way so visitors quickly understand what the product does.
 
-**Product demo section.** The animated SoftSync demo uses React with Tailwind CSS and framer-motion so the UI stays in one stack and animations are declarative and easy to tune. The typewriter chat and tabbed views (AI Analyst, Pipeline, Email) were chosen to show the product in action without feeling gimmicky, and the sidebar collapses to icons on tablet and hides on mobile so the mockup reads well at all breakpoints.
+**Tech:** React 19, TypeScript, Vite, Tailwind CSS v4, framer-motion.
 
-Currently, two official plugins are available:
+## Run it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open the URL Vite prints (e.g. `http://localhost:5173`). Build for production with `npm run build`; preview the build with `npm run preview`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## What’s in the repo
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Product demo section** — Full-width section with a heading, short tagline, and an interactive mockup of the SoftSync app.
+- **App mockup** — Sidebar (nav, My groups, user) and a main area that switches by tab: **AI Analyst** (chat with typewriter), **Pipeline** (kanban-style columns), **Email** (thread list + draft).
+- **Animations** — Section content fades/slides in on scroll; the AI Analyst tab runs an auto typewriter (user question → AI reply); tab changes use a short slide transition.
+- **Responsive** — Desktop: full sidebar and labels. Tablet: narrow sidebar (icons only). Mobile: sidebar hidden, compact header; tabs and pipeline/email layouts adapt.
+
+Key files:
+
+| Path | Role |
+|------|------|
+| `src/App.tsx` | Renders the product demo section. |
+| `src/components/ProductDemoSection.tsx` | Section layout, title, tabs (AI / Pipeline / Email), scroll-in animations. |
+| `src/components/DemoAppMockup.tsx` | Sidebar + tabbed main content (chat, pipeline, email), typewriter state, responsive sidebar. |
+| `src/hooks/useTypewriter.ts` | Hook for character-by-character typewriter effect. |
+
+## Choices made
+
+- **React + Tailwind + framer-motion** — Keeps UI, styling, and animation in one stack. Framer-motion gives declarative scroll and tab transitions and keeps the code easy to adjust (durations, easing, stagger) without touching CSS keyframes.
+
+- **Typewriter + tabs** — The simulated chat (user question then AI answer) shows the product in action without feeling playful; the three tabs (AI Analyst, Pipeline, Email) mirror real app surfaces and give a clear “state change” to animate, similar to product sites like Attio.
+
+- **One auto-play sequence** — The typewriter runs once on load (with a short delay) so the demo doesn’t loop or distract. Visitors can still switch tabs to explore Pipeline and Email.
+
+- **Responsive sidebar** — Full sidebar on desktop, icon-only strip on tablet, and hidden on mobile with a simple “SoftSync” header. That keeps the mockup readable on small screens without shrinking the main content too much.
+
+- **Tailwind v4** — Uses the CSS-first setup (`@import "tailwindcss"` in `src/index.css`) and no JS config, which fits a small, focused demo and keeps styling co-located with components.
