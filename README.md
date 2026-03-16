@@ -2,6 +2,8 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+**Product demo section.** The animated SoftSync demo uses React with Tailwind CSS and framer-motion so the UI stays in one stack and animations are declarative and easy to tune. The typewriter chat and tabbed views (AI Analyst, Pipeline, Email) were chosen to show the product in action without feeling gimmicky, and the sidebar collapses to icons on tablet and hides on mobile so the mockup reads well at all breakpoints.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
